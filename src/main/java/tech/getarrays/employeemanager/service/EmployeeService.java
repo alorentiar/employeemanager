@@ -6,6 +6,7 @@ import tech.getarrays.employeemanager.exception.UserNotFoundException;
 import tech.getarrays.employeemanager.model.Employee;
 import tech.getarrays.employeemanager.repo.EmployeeRepo;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -28,5 +29,16 @@ public class EmployeeService {
 
     public void deleteEmployee(Long id){
         employeeRepo.deleteEmployeeById(id);
+    }
+
+    public List<Employee> findAllEmployees() {
+        return employeeRepo.findAll();
+    }
+
+    public Employee updateEmployee(Employee employee) {
+        Employee employeeToUpdate = findEmployeeById(employee.getId());
+        employeeToUpdate.setName(employee.getName());
+        employeeToUpdate.setEmployeeCode(employee.getEmployeeCode());
+        return employeeRepo.save(employeeToUpdate);
     }
 }
